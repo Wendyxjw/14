@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<title>10</title>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="angular/angular.js"></script>
+<link href="bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="bootstrap-3.3.5-dist/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
+<script src="controller/indexController.js"></script>
+<script src="filter/customFilters.js"></script>
+<body>
+<div ng-controller="defaultCtrl" >
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Products<span class="label label-primary">{{products.length}}</span></h3>
+    </div>
+    <div class="panel-body">
+        Limit:<select ng-model="limitVal" ng-options="item for item in limitRange"></select>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped tab-content">
+            <thead>
+            <tr>
+                <th>Name</th><th>Category</th><th>Expiry</th><th class="text-right">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in products|limitTo:limitVal|orderBy:'-price'">
+                <td>{{item.name|labelCase}}</td>
+                <td>{{item.category|labelCase:true}}</td>
+                <td>{{getExpiryDate(item.expiry)|date:"dd MMM yyyy"}}</td>
+                <td class="text-right">{{item.price|currency:"¥":1}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>
